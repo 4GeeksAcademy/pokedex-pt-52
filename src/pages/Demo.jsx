@@ -25,7 +25,7 @@ export const Demo = () => {
               <button className="btn btn-success" 
                 onClick={() => dispatch({
                   type: "add_task", 
-                  payload: { id: item.id, color: '#ffa500' }
+                  payload: { id: item.id, color: 'red' }
                 })}>
                 Change Color
               </button>
