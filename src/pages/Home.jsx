@@ -6,6 +6,9 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 const pokemonPicture = (pokemonNumber) => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemonNumber}.svg`
 
 const PokemonCard = ({ pokemon }) => {
+
+	const { dispatch } = useGlobalReducer()
+
 	return <div className="p-2 col-3" style={{ minHeight: "186px"}}>
 		<div className="card d-flex flex-column h-100" style={{ minHeight: "186px"}}>
 			<img src={pokemonPicture(pokemon.number)} className="card-img-top mx-auto mb-auto"
@@ -14,7 +17,13 @@ const PokemonCard = ({ pokemon }) => {
 			<div className="m-2 mt-auto">
 				<h5 className="card-title">{pokemon.name}</h5>
 					<p className="card-text"># {pokemon.number} </p>
-					<button className="btn btn-primary">Go somewhere</button>
+				<button className="btn btn-primary"
+					onClick={() => dispatch({
+						type: "add_favorite",
+						payload: pokemon
+					})}
+				>{"<3"}
+				</button>
 			</div>
 		</div>
 	</div>
@@ -24,15 +33,17 @@ const PokemonCard = ({ pokemon }) => {
 export const Home = () => {
 
 	const { store, dispatch } = useGlobalReducer();
+
 	const apiUrl = `https://pokeapi.co/api/v2/pokemon?limit=151&offset=0`;
-
-
-	const [ pokemons, setPokemons ] = useState([])
 
 	const loadPokemons = async () => {
 		const resp = await fetch(apiUrl);
 		const data = await resp.json();
-		setPokemons(data.results);
+		// zustand - flux - redux
+		dispatch({
+			type: "update_pokemons",
+			payload: { newPokemons: data.results }
+		});
 	}
 
 	useEffect(() => {
@@ -44,7 +55,7 @@ export const Home = () => {
 			<h1>Pokedex</h1>
 
 			<div className="d-flex flex-wrap w-100">
-				{pokemons && pokemons.map((item,indice) => (
+				{store.pokemons && store.pokemons.map((item,indice) => (
 					<PokemonCard pokemon={{ ...item, number: indice + 1 }} />
 				))}
 			</div>
