@@ -12,10 +12,28 @@ export const Navbar = () => {
 					<span className="navbar-brand mb-0 h1">PokedexEndogena</span>
 				</Link>
 				<div className="ml-auto">
-					<button className="btn btn-warning text-white fs-bold">
-						Wishlist {store.favorites.length}
-					</button>
+					<div className="dropdown">
+						<button className="btn btn-warning text-white fs-bold dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Wishlist {store.favorites.length}
+						</button>
+						<ul className="dropdown-menu">
+							{
+								store.favorites.slice(0,5).map((pokemon, index) => <li key={index}>
+								<p className="dropdown-item">
+									{pokemon.name}</p>
+								</li>)
+							}
 
+							{
+								store.favorites.length > 5 && <Link to="/favorites">
+									<p className="dropdown-item">
+										ver mas...
+									</p>
+								</Link>
+							}
+
+						</ul>
+					</div>
 					{/* <Link to="/demo">
 						<button className="btn btn-primary">Check the Context in action</button>
 					</Link> */}
