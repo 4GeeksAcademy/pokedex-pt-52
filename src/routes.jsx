@@ -11,6 +11,7 @@ import { Single } from "./pages/Single";
 import { Demo } from "./pages/Demo";
 
 import Wishlist from "./pages/Wishlist";
+import PokemonDetails from "./pages/PokemonDetails";
 
 
 export const router = createBrowserRouter(
@@ -30,7 +31,8 @@ export const router = createBrowserRouter(
         <Route path="/demo" element={<Demo />} />
 
         <Route path="/favorites" element={<Wishlist/>} />
-
+        <Route path="/pokemon/:pokemonNumber" element={<PokemonDetails />} />
+        
       </Route>
     )
 );

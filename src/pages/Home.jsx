@@ -28,7 +28,7 @@ export const Home = () => {
 		<div className="text-center mt-5 text-black">
 			<h1>Pokedex</h1>
 			{/* TODO:  Este amigo podria ser un Componete y reutilizarse en Wishlist */}
-			<div className="d-flex flex-wrap w-100">
+			<div className="d-flex flex-wrap col-10 mx-auto">
 				{store.pokemons && store.pokemons.map((item,indice) => (
 					<PokemonCard key={indice}  pokemon={{ ...item, number: indice + 1 }} />
 				))}
